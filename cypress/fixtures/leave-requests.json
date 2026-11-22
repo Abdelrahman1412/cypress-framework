@@ -1,0 +1,13 @@
+[
+  {
+    "id": 900,
+    "employeeId": "u-mgr",
+    "employeeName": "Morgan Manager",
+    "type": "sick",
+    "startDate": "2026-01-12",
+    "endDate": "2026-01-13",
+    "reason": "Fixture: flu",
+    "status": "approved",
+    "decidedBy": "Avery Admin"
+  }
+]

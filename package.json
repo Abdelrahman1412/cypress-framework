@@ -1,5 +1,49 @@
 {
-  "dependencies": {
-    "cypress": "^12.12.0"
+  "name": "acme-hr-cypress",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A plug-in Cypress + TypeScript test framework, proven against a tiny local Acme HR leave-request app.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build:app": "vite build --config demo/app/vite.config.ts",
+    "start:demo": "node --env-file-if-exists=.env demo/server/index.ts",
+    "start:demo:test": "ENABLE_TEST_ROUTES=true node --env-file-if-exists=.env demo/server/index.ts",
+    "typecheck": "tsc -p tsconfig.json && tsc -p cypress/tsconfig.json",
+    "cy:open": "cypress open --e2e",
+    "cy:run": "cypress run --e2e",
+    "cy:run:mock": "API_MODE=mock cypress run --e2e",
+    "test:component": "cypress run --component",
+    "test": "npm run build:app && start-server-and-test start:demo:test http://localhost:4173/api/health cy:run",
+    "test:mock": "npm run build:app && start-server-and-test start:demo:test http://localhost:4173/api/health cy:run:mock",
+    "test:all": "npm run typecheck && npm test && npm run test:mock && npm run test:component",
+    "split-specs": "node scripts/split-specs.ts",
+    "check-flaky": "node scripts/check-flaky.ts",
+    "report:merge": "generate-mochawesome-report --set-exit-code"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "axe-core": "4.14.1",
+    "cypress": "16.3.0",
+    "cypress-axe": "1.7.0",
+    "cypress-mochawesome-reporter": "5.0.0",
+    "express": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "start-server-and-test": "3.0.13",
+    "typescript": "7.0.2",
+    "vite": "8.3.8"
+  },
+  "overrides": {
+    "cypress-axe": {
+      "cypress": "$cypress"
+    }
   }
 }
